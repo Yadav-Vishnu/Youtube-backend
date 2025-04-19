@@ -1,11 +1,21 @@
-
+import app from "./app.js";
 import dotenv from "dotenv";
 dotenv.config({path: "./.env"});
 
 import connectDB from "./db/index.js";
 
 
-connectDB();
+connectDB()
+.then(()=>{
+    app.listen(process.env.PORT ||8085,()=>{
+        console.log(`App is connected with port ${process.env.PORT}`);
+    })
+})
+.catch((error)=>{
+    console.error("DB Connection Error:", error);
+    process.exit(1)
+}
+    )       
 
 // import express from "express";
 // const app = express();
